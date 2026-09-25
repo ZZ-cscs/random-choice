@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>今天做什么？</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+
+  <div class="logo">
+    ✨
+  </div>
+
+  <h1>
+    今日灵感
+  </h1>
+
+  <p class="subtitle">
+    不知道做什么？
+    <br>
+    让随机帮你发现生活的小惊喜
+  </p>
+
+</div>
+
+    <div class="categories">
+
+     <button
+class="category-btn food"
+onclick="chooseCategory('餐饮', this)">
+
+<span>
+🍜
+</span>
+
+<strong>
+餐饮
+</strong>
+
+<small>
+美食探索
+</small>
+
+</button>
+
+<button
+class="category-btn travel"
+onclick="chooseCategory('旅游', this)">
+
+<span>🏝️</span>
+
+<strong>旅游</strong>
+
+<small>发现风景</small>
+
+</button>
+
+<button
+class="category-btn craft"
+onclick="chooseCategory('手工', this)">
+
+<span>🎨</span>
+
+<strong>手工</strong>
+
+<small>创造乐趣</small>
+
+</button>
+
+<button
+class="category-btn game"
+onclick="chooseCategory('游戏', this)">
+
+<span>🎮</span>
+
+<strong>游戏</strong>
+
+<small>休闲挑战</small>
+
+</button>
+
+<button
+class="category-btn shop"
+onclick="chooseCategory('购物', this)">
+
+<span>🛍️</span>
+
+<strong>购物</strong>
+
+<small>发现好物</small>
+
+</button>
+
+<button
+ class="all-btn"
+ onclick="randomAll()">
+🎯 全部随机
+</button>
+
+    </div>
+
+    <div class="result-box">
+
+        <div class="mode-box">
+
+<h3>🎯 抽签模式</h3>
+
+<label>
+<input 
+type="radio"
+name="mode"
+value="repeat"
+checked
+>
+允许重复
+</label>
+
+
+<label>
+<input 
+type="radio"
+name="mode"
+value="once"
+>
+抽中过的不再出现
+</label>
+
+
+</div>
+
+      <p id="categoryText">
+  请先选择一个类别
+</p>
+
+<div class="result-card">
+
+  <div class="card-brand">
+    ✨ 今日灵感
+  </div>
+
+  <div id="resultIcon">
+    ✨
+  </div>
+
+  <p id="resultTitle">
+    等待选择
+  </p>
+
+  <h2 id="result">
+    ？
+  </h2>
+
+  <p id="resultTip">
+    选择一个类别开始吧
+  </p>
+
+  <div class="card-footer">
+    让随机帮你做个小决定
+  </div>
+
+</div>
+
+      <button
+        id="drawButton"
+        onclick="drawItem()"
+        disabled
+      >
+        🎲 开始抽签
+      </button>
+
+<button
+  id="shareButton"
+  onclick="shareResult()"
+  disabled
+>
+  📤 分享结果
+</button>
+
+ <details class="fold-box">
+
+<summary>
+📜 抽签记录
+</summary>
+
+
+<div class="fold-content">
+
+<button onclick="clearHistory()">
+🗑 清空记录
+</button>
+
+
+<ul id="historyList"></ul>
+
+
+</div>
+
+</details> 
+
+<details class="fold-box">
+
+
+<summary>
+⚙️ 签库管理
+</summary>
+
+
+<div class="fold-content">
+
+
+<h3>
+添加签内容
+</h3>
+
+
+<input 
+id="newItem"
+placeholder="输入新的抽签内容">
+
+
+<button onclick="addItem()">
+➕ 添加
+</button>
+
+
+</div>
+
+</details>
+
+<details class="fold-box">
+
+
+<summary>
+📋 当前灵感库
+</summary>
+
+
+<div class="fold-content">
+
+
+<ul id="itemList"></ul>
+
+
+<button onclick="resetItems()">
+🔄 恢复全部签
+</button>
+
+
+</div>
+
+
+</details>
+
+<!-- 关闭 result-box -->
+</div>
+
+
+<!-- 关闭 container -->
+</div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

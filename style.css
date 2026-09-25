@@ -1,0 +1,733 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Microsoft YaHei", sans-serif;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7f8fc,
+      #eef2f7
+    );
+
+
+min-height:100vh;
+display:flex;
+
+  justify-content:center;
+}
+
+.container{
+
+  width:90%;
+
+  max-width:750px;
+
+  margin:40px auto;
+
+  text-align:center;
+
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.categories button {
+  padding: 20px;
+
+  font-size: 20px;
+
+  border: 2px solid transparent;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border 0.2s ease;
+}
+
+.categories button:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.result-box {
+  margin-top: 35px;
+
+  padding: 30px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+   transition:0.3s;
+
+scroll-margin-top: 20px;
+
+}
+
+.result-box:hover {
+
+ transform:translateY(-3px);
+
+}
+
+#categoryText {
+  color: #666;
+}
+
+
+
+#drawButton {
+  padding: 15px 35px;
+
+  font-size: 18px;
+
+  border: none;
+  border-radius: 30px;
+
+  cursor: pointer;
+
+  background: #222;
+  color: white;
+}
+
+#drawButton:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.history-box {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.history-box h3 {
+  text-align: center;
+}
+
+#historyList {
+  padding-left: 20px;
+}
+
+#historyList li {
+  margin-bottom: 8px;
+}
+
+.manage-box {
+
+  margin-top:25px;
+
+  padding:25px;
+
+  background:white;
+
+  border-radius:20px;
+
+}
+
+
+.manage-box input {
+
+  padding:12px;
+
+  width:60%;
+
+  border-radius:10px;
+
+  border:1px solid #ddd;
+
+  font-size:16px;
+
+}
+
+
+.manage-box button {
+
+  padding:12px 20px;
+
+  margin-left:10px;
+
+  border:none;
+
+  border-radius:10px;
+
+  cursor:pointer;
+
+}
+
+.list-box {
+
+  margin-top:25px;
+
+  padding:25px;
+
+  background:white;
+
+  border-radius:20px;
+
+}
+
+
+.list-box li {
+
+  list-style:none;
+
+  margin:10px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+}
+
+
+.list-box button {
+
+  border:none;
+
+  border-radius:8px;
+
+  padding:5px 12px;
+
+  cursor:pointer;
+
+}
+
+.mode-box{
+
+margin-bottom:20px;
+
+padding:15px;
+
+background:white;
+
+border-radius:15px;
+
+}
+
+
+.mode-box label{
+
+margin:10px;
+
+cursor:pointer;
+
+}
+
+/* 抽签结果弹出动画 */
+.result-pop {
+  animation: popResult 0.5s ease;
+}
+
+@keyframes popResult {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* 抽签过程中按钮状态 */
+#drawButton.drawing {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* 手机适配 */
+@media (max-width: 600px) {
+
+  body {
+
+align-items:flex-start;
+
+justify-content:center;
+
+padding:20px 0;
+
+}
+
+ .container {
+  width:92%;
+  max-width:none;
+}
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .categories {
+    grid-template-columns: 1fr;
+  }
+
+  .categories button {
+    font-size: 18px;
+    padding: 16px;
+  }
+
+  .result-box {
+    padding: 22px;
+  }
+
+
+
+  #drawButton {
+    width: 100%;
+  }
+
+  .manage-box input {
+    width: 100%;
+    
+    margin-bottom: 10px;
+  }
+
+  .manage-box button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .list-box {
+    padding: 20px;
+  }
+
+  .list-box li {
+    margin: 10px 0;
+    gap: 10px;
+  }
+
+  .mode-box label {
+    display: block;
+    margin: 10px 0;
+  }
+
+}
+
+
+/* 当前选中的分类 */
+.categories button.active {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+
+.all-btn {
+
+  grid-column: 1 / -1;
+
+  padding:20px;
+
+  font-size:22px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:white;
+
+  cursor:pointer;
+
+  box-shadow:
+  0 6px 18px rgba(0,0,0,0.1);
+
+  transition:0.2s;
+
+}
+
+
+.all-btn:hover {
+
+  transform:translateY(-4px);
+
+}
+
+/* 顶部品牌区域 */
+
+.header {
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 48px;
+  margin-bottom: 8px;
+
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+.header h1 {
+  margin: 0;
+
+  font-size: 38px;
+
+  letter-spacing: 2px;
+}
+
+.subtitle {
+
+  color:#777;
+
+  font-size:15px;
+
+  line-height:1.8;
+
+  margin-top:12px;
+
+  margin-bottom:30px;
+
+}
+
+
+/* Logo轻微漂浮动画 */
+
+@keyframes logoFloat {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+
+}
+
+.category-btn {
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:8px;
+
+}
+
+
+.category-btn span {
+
+  font-size:32px;
+
+}
+
+
+.category-btn strong {
+
+  font-size:20px;
+
+}
+
+
+.category-btn small {
+
+  color:#777;
+
+  font-size:13px;
+
+}
+
+
+
+#shareButton {
+  display: block;
+
+  margin: 14px auto 0;
+
+  padding: 13px 30px;
+
+  font-size: 16px;
+
+  border: 1px solid #dddddd;
+
+  border-radius: 30px;
+
+  background: #f3f3f3;
+
+  color: #222222;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s;
+}
+
+
+#shareButton:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+
+#shareButton:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* 结果分享卡片 */
+
+.result-card {
+  margin-top: 20px;
+
+  padding: 30px 25px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f8f9fc
+    );
+
+  border: 1px solid #eeeeee;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08);
+
+  text-align: center;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+
+/* 卡片左上角品牌 */
+
+.card-brand {
+  font-size: 14px;
+
+  color: #999;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 22px;
+}
+
+
+/* 分类图标 */
+
+#resultIcon {
+  font-size: 52px;
+
+  margin-bottom: 12px;
+}
+
+
+/* 分类标题 */
+
+#resultTitle {
+  font-size: 18px;
+
+  color: #666;
+
+  margin-bottom: 18px;
+}
+
+
+/* 核心抽签结果 */
+
+#result {
+  font-size: 42px;
+
+  font-weight: bold;
+
+  margin: 22px 0;
+
+  letter-spacing: 2px;
+}
+
+
+/* 提示文字 */
+
+#resultTip {
+  color: #888;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+
+  margin-top: 18px;
+}
+
+
+/* 卡片底部 */
+
+.card-footer {
+  margin-top: 28px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #eeeeee;
+
+  color: #aaaaaa;
+
+  font-size: 12px;
+}
+
+.result-card.food-card {
+  background:
+    linear-gradient(
+      145deg,
+      #fffaf5,
+      #ffffff
+    );
+}
+
+.result-card.travel-card {
+  background:
+    linear-gradient(
+      145deg,
+      #f4faff,
+      #ffffff
+    );
+}
+
+.result-card.craft-card {
+  background:
+    linear-gradient(
+      145deg,
+      #fbf7ff,
+      #ffffff
+    );
+}
+
+.result-card.game-card {
+  background:
+    linear-gradient(
+      145deg,
+      #f5f8ff,
+      #ffffff
+    );
+}
+
+.result-card.shop-card {
+  background:
+    linear-gradient(
+      145deg,
+      #f5fffb,
+      #ffffff
+    );
+}
+
+/* 五大分类选中后的颜色 */
+
+.categories button.food.active {
+  border-color: #ff9f43;
+  background: #fff7ed;
+}
+
+.categories button.travel.active {
+  border-color: #54a0ff;
+  background: #f0f8ff;
+}
+
+.categories button.craft.active {
+  border-color: #a55eea;
+  background: #faf4ff;
+}
+
+.categories button.game.active {
+  border-color: #5f6eea;
+  background: #f3f5ff;
+}
+
+.categories button.shop.active {
+  border-color: #10ac84;
+  background: #effcf7;
+}
+
+/* 折叠区域 */
+
+.fold-box {
+
+  margin-top:25px;
+
+  padding:20px;
+
+  background:white;
+
+  border-radius:20px;
+
+  box-shadow:
+  0 3px 15px rgba(0,0,0,0.08);
+
+}
+
+
+/* 标题 */
+
+.fold-box summary {
+
+  cursor:pointer;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  list-style:none;
+
+}
+
+
+/* 去掉默认三角 */
+
+.fold-box summary::-webkit-details-marker {
+
+  display:none;
+
+}
+
+
+.fold-content {
+
+  margin-top:20px;
+
+}
