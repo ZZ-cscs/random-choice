@@ -684,6 +684,11 @@ padding:20px 0;
   background: #effcf7;
 }
 
+.categories button.hobby.active {
+  border-color:#ff6b81;
+  background:#fff5f7;
+}
+
 /* 折叠区域 */
 
 .fold-box {
