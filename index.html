@@ -32,91 +32,40 @@
 
 </div>
 
-    <div class="categories">
+   <div class="categories" id="categoryList">
 
-     <button
-class="category-btn food"
-onclick="chooseCategory('餐饮', this)">
-
-<span>
-🍜
-</span>
-
-<strong>
-餐饮
-</strong>
-
-<small>
-美食探索
-</small>
-
-</button>
+</div>
 
 <button
-class="category-btn travel"
-onclick="chooseCategory('旅游', this)">
-
-<span>🏝️</span>
-
-<strong>旅游</strong>
-
-<small>发现风景</small>
-
+  class="all-btn"
+  onclick="randomAll()">
+  🎯 全部随机
 </button>
 
-<button
-class="category-btn craft"
-onclick="chooseCategory('手工', this)">
+    <details class="fold-box">
 
-<span>🎨</span>
+  <summary>
+    ➕ 新增类别
+  </summary>
 
-<strong>手工</strong>
+  <div class="fold-content">
 
-<small>创造乐趣</small>
+    <input
+      id="newCategoryName"
+      placeholder="输入类别名称，例如：运动">
 
-</button>
+    <input
+      id="newCategoryIcon"
+      placeholder="输入图标，例如：🏃"
+      maxlength="4">
 
-<button
-class="category-btn game"
-onclick="chooseCategory('游戏', this)">
+    <button onclick="addCategory()">
+      ➕ 添加类别
+    </button>
 
-<span>🎮</span>
+  </div>
 
-<strong>游戏</strong>
-
-<small>休闲挑战</small>
-
-</button>
-
-<button
-class="category-btn shop"
-onclick="chooseCategory('购物', this)">
-
-<span>🛍️</span>
-
-<strong>购物</strong>
-
-<small>发现好物</small>
-
-</button>
-
-<button
-class="category-btn hobby"
-onclick="chooseCategory('爱好', this)">
-
-<span>🌈</span>
-
-<strong>爱好</strong>
-
-<small>探索兴趣</small>
-
-</button>
-
-<button
- class="all-btn"
- onclick="randomAll()">
-🎯 全部随机
-</button>
+</details> 
 
     </div>
 

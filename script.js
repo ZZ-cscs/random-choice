@@ -89,38 +89,49 @@ const data = {
 
 let currentCategory = "";
 
-const categoryInfo = {
+let categoryInfo = {
 
   "餐饮": {
+    icon: "🍜",
     title: "🍜 今日美食推荐",
-    tip: "享受一顿美味，给生活一点仪式感"
+    tip: "享受一顿美味，给生活一点仪式感",
+    subtitle: "美食探索"
   },
 
   "旅游": {
-    title: "🏝 今日探索地点",
-    tip: "出去走走，发现身边的新风景"
+    icon: "🏝️",
+    title: "🏝️ 今日探索地点",
+    tip: "出去走走，发现身边的新风景",
+    subtitle: "发现风景"
   },
 
   "手工": {
+    icon: "🎨",
     title: "🎨 今日创作灵感",
-    tip: "动手创造属于自己的作品"
+    tip: "动手创造属于自己的作品",
+    subtitle: "创造乐趣"
   },
 
   "游戏": {
+    icon: "🎮",
     title: "🎮 今日娱乐推荐",
-    tip: "放松一下，享受游戏时间"
+    tip: "放松一下，享受游戏时间",
+    subtitle: "休闲挑战"
   },
 
   "购物": {
-    title: "🛍 今日购物选择",
-    tip: "发现喜欢的物品，提升生活品质"
+    icon: "🛍️",
+    title: "🛍️ 今日购物选择",
+    tip: "发现喜欢的物品，提升生活品质",
+    subtitle: "发现好物"
   },
 
-"爱好": {
+  "爱好": {
+    icon: "🌈",
     title: "🌈 今日兴趣推荐",
-    tip: "探索喜欢的事情，丰富生活体验"
-}
-
+    tip: "探索喜欢的事情，丰富生活体验",
+    subtitle: "探索兴趣"
+  }
 
 };
 
@@ -150,6 +161,16 @@ if(savedData){
     data,
     JSON.parse(savedData)
   );
+
+}
+
+let savedCategoryInfo =
+  localStorage.getItem("categoryInfo");
+
+if (savedCategoryInfo) {
+
+  categoryInfo =
+    JSON.parse(savedCategoryInfo);
 
 }
 
@@ -496,6 +517,8 @@ function saveData(){
 
 window.addEventListener("load", function(){
 
+   renderCategories();
+
   const historyList =
   document.getElementById("historyList");
 
@@ -619,5 +642,149 @@ function shareResult() {
       });
 
   }
+
+}
+
+function saveCategoryInfo() {
+
+  localStorage.setItem(
+    "categoryInfo",
+    JSON.stringify(categoryInfo)
+  );
+
+}
+
+function renderCategories() {
+
+  const categoryList =
+    document.getElementById("categoryList");
+
+  categoryList.innerHTML = "";
+
+
+  Object.keys(data).forEach(function(category) {
+
+    const button =
+      document.createElement("button");
+
+
+    button.className =
+      "category-btn";
+
+
+    const info =
+      categoryInfo[category];
+
+
+    const icon =
+      info && info.icon
+        ? info.icon
+        : "✨";
+
+
+    const subtitle =
+      info && info.subtitle
+        ? info.subtitle
+        : "随机探索";
+
+
+    button.innerHTML = `
+      <span>${icon}</span>
+      <strong>${category}</strong>
+      <small>${subtitle}</small>
+    `;
+
+
+    button.onclick = function() {
+
+      chooseCategory(
+        category,
+        button
+      );
+
+    };
+
+
+    categoryList.appendChild(button);
+
+  });
+
+}
+
+function addCategory() {
+
+  const nameInput =
+    document.getElementById("newCategoryName");
+
+  const iconInput =
+    document.getElementById("newCategoryIcon");
+
+
+  const name =
+    nameInput.value.trim();
+
+  const icon =
+    iconInput.value.trim() || "✨";
+
+
+  if (name === "") {
+
+    alert("请输入类别名称");
+
+    return;
+
+  }
+
+
+  if (data[name]) {
+
+    alert("这个类别已经存在啦");
+
+    return;
+
+  }
+
+
+  // 创建空签库
+  data[name] = [];
+
+
+  // 创建类别信息
+  categoryInfo[name] = {
+
+    icon: icon,
+
+    title:
+      icon + " 今日" + name + "推荐",
+
+    tip:
+      "让随机帮你发现新的" +
+      name +
+      "灵感",
+
+    subtitle:
+      "随机探索"
+
+  };
+
+
+  saveData();
+
+  saveCategoryInfo();
+
+
+  renderCategories();
+
+
+  nameInput.value = "";
+
+  iconInput.value = "";
+
+
+  alert(
+    "类别“" +
+    name +
+    "”添加成功！"
+  );
 
 }
