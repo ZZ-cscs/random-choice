@@ -540,16 +540,23 @@ function randomAll(){
   "当前类别：" + randomCategory;
 
 
-  document.getElementById(
-    "resultTitle"
-  ).innerText =
-  categoryInfo[randomCategory].title;
+  if (categoryInfo[category]) {
 
+  document.getElementById("resultTitle").innerText =
+    categoryInfo[category].title;
 
-  document.getElementById(
-    "resultTip"
-  ).innerText =
-  categoryInfo[randomCategory].tip;
+  document.getElementById("resultTip").innerText =
+    categoryInfo[category].tip;
+
+} else {
+
+  document.getElementById("resultTitle").innerText =
+    "今日灵感";
+
+  document.getElementById("resultTip").innerText =
+    "让随机帮你发现新的可能";
+
+}
 
 
  showItems();
