@@ -538,65 +538,119 @@ window.addEventListener("load", function(){
 
 });
 
-function randomAll(){
+function randomAll() {
+
+  // 只获取有签内容的类别
+  const categories = Object.keys(data).filter(function(category) {
+
+    return data[category] &&
+           data[category].length > 0;
+
+  });
 
 
-  const categories =
-  Object.keys(data);
+  // 如果所有类别都没有内容
+  if (categories.length === 0) {
+
+    alert("目前没有可以抽取的内容，请先添加一些签。");
+
+    return;
+
+  }
 
 
+  // 随机选择类别
   const randomCategory =
-  categories[
-    Math.floor(
-      Math.random()*categories.length
-    )
-  ];
+    categories[
+      Math.floor(
+        Math.random() * categories.length
+      )
+    ];
 
 
-  currentCategory =
-  randomCategory;
+  // 设置当前类别
+  currentCategory = randomCategory;
 
 
+  // 显示当前类别
   document.getElementById(
     "categoryText"
   ).innerText =
-  "当前类别：" + randomCategory;
+    "当前类别：" + randomCategory;
 
 
-  if (categoryInfo[category]) {
+  // 更新结果卡片
+  if (categoryInfo[randomCategory]) {
 
-  document.getElementById("resultTitle").innerText =
-    categoryInfo[category].title;
-
-  document.getElementById("resultTip").innerText =
-    categoryInfo[category].tip;
-
-} else {
-
-  document.getElementById("resultTitle").innerText =
-    "今日灵感";
-
-  document.getElementById("resultTip").innerText =
-    "让随机帮你发现新的可能";
-
-}
+    document.getElementById(
+      "resultTitle"
+    ).innerText =
+      categoryInfo[randomCategory].title;
 
 
- showItems();
+    document.getElementById(
+      "resultTip"
+    ).innerText =
+      categoryInfo[randomCategory].tip;
 
 
-document.querySelector(".result-box").scrollIntoView({
-  behavior:"smooth",
-  block:"start"
-});
+    // 更新图标
+    if (categoryInfo[randomCategory].icon) {
+
+      document.getElementById(
+        "resultIcon"
+      ).innerText =
+        categoryInfo[randomCategory].icon;
+
+    }
+
+  } else {
+
+    document.getElementById(
+      "resultTitle"
+    ).innerText =
+      "今日灵感";
 
 
-setTimeout(function(){
+    document.getElementById(
+      "resultTip"
+    ).innerText =
+      "让随机帮你发现新的可能";
 
-  drawItem();
+  }
 
-},500);
 
+  // 显示当前类别的签库
+  showItems();
+
+
+  // 启用抽签按钮
+  document.getElementById(
+    "drawButton"
+  ).disabled = false;
+
+
+  // 滚动到结果区域
+  const resultBox =
+    document.querySelector(".result-box");
+
+
+  if (resultBox) {
+
+    resultBox.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+
+  // 等待滚动后自动抽签
+  setTimeout(function() {
+
+    drawItem();
+
+  }, 500);
 
 }
 
